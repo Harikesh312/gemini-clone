@@ -59,6 +59,10 @@
     border: 0.0625rem solid rgb(192, 186, 186);
 }
 
+.img-box{
+    font-size: 25px;
+}
+
 .search-box img{
     width: 24px;
     cursor: pointer;
@@ -159,6 +163,11 @@
 }
 
 @media (max-width: 796px) {
+    .result-data{
+        display: flex;
+        flex-direction: column;
+    }
+
     .main .greet {
         font-weight: 500;
         padding: 50px; 

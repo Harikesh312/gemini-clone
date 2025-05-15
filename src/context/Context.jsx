@@ -30,8 +30,8 @@ const ContextProvider = (props) => {
 
         let response;
         if (prompt !== undefined) {
-            if (prompt.toLowerCase().includes("who build you") || prompt.toLowerCase().includes("who built you")) {
-                response = "I was built by Harikesh.";
+            if (prompt.toLowerCase().includes("who build you") || prompt.toLowerCase().includes("who trained you") || prompt.toLowerCase().includes("who built you")) {
+                response = "I'm a large languange model and trained by Harikesh Kumar.";
             } else {
                 response = await runChat(prompt);
             }
@@ -39,8 +39,8 @@ const ContextProvider = (props) => {
         } else {
             setPrevPrompts((prev) => [...prev, input]);
             setRecentPrompt(input);
-            if (input.toLowerCase().includes("who built you") || input.toLowerCase().includes("who trained you")) {
-                response = "I was built by Harikesh.";
+            if (input.toLowerCase().includes("who built you") || input.toLowerCase().includes("who trained you") || input.toLowerCase().includes("who build you")) {
+                response = "I'm a large languange model and trained by Harikesh Kumar.";
             } else {
                 response = await runChat(input);
             }

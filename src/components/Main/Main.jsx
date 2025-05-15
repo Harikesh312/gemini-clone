@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import './Main.css'
 import {assets} from '../../assets/assets'
-
+import { GoPlus } from "react-icons/go";
 import { Context } from '../../context/Context'
 
 
@@ -41,11 +41,12 @@ const Main = () => {
           }
             <div className="main-bottom">
               <div className="search-box">
+                <div className='img-box'>
+                  <GoPlus/>
+                </div>
                 <input onChange={(e)=>setInput(e.target.value)} value={input} type="text" placeholder='Ask Chatbot'/>
                 <div>
-                  <img src={assets.gallery_icon} alt="" />
-                  <img src={assets.mic_icon} alt="" />
-                  <img onClick={()=>onSent()} src={assets.send_icon} alt="" />
+                  {input?<img onClick={()=>onSent()} src={assets.send_icon} alt="" />:<img src={assets.mic_icon} alt="" />}
                 </div>
               </div>
               <p className="bottom-info">
