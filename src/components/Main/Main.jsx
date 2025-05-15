@@ -14,7 +14,7 @@ const Main = () => {
   return (
     <div className='main'>
         <div className="nav">
-            <p>Chatbot</p>
+            <p>Cognito</p>
             <img src={assets.user_icon} alt="" />
         </div>
         <div className="main-container">
@@ -43,7 +43,7 @@ const Main = () => {
           }
             <div className="main-bottom">
               <div className="search-box">
-                <input onChange={(e)=>setInput(e.target.value)} value={input} type="text" placeholder='Ask Chatbot'/>
+                <input onChange={(e)=>setInput(e.target.value)} value={input} type="text" placeholder='Ask Cognito'/>
                 <div className='search-icon'>
                   <div>
                     <GoPlus className='img-box'/>
@@ -60,7 +60,7 @@ const Main = () => {
                 </div>
               </div>
               <p className="bottom-info">
-                Chatbot can make mistakes, so double-check it
+                Cognito can make mistakes, so double-check it
               </p>
             </div>
         </div>

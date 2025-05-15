@@ -126,7 +126,7 @@
 
 .result{
     padding: 0px 5%;
-    max-height: 67vh;
+    max-height: 66vh;
     overflow-y: scroll;
     scrollbar-width: thin; 
     scrollbar-color: transparent transparent; 
@@ -217,14 +217,14 @@
         left: 0;
         right: 0;
         background: white;
-        padding: 10px;
+        padding: 2px;
         display: flex;
         flex-direction: column;
         align-items: center;
         width: 100%; 
     }
     .search-box {
-        width: 90%;
+        width: 93%;
         display: flex;
         justify-content: space-between;
         padding: 8px 12px;
@@ -252,6 +252,9 @@
     .search-box img {
         width: 22px;
         cursor: pointer;
+    }
+    .result{
+    max-height: 64vh;
     }
 }
 
