@@ -3,6 +3,8 @@ import './Main.css'
 import {assets} from '../../assets/assets'
 import { GoPlus } from "react-icons/go";
 import { Context } from '../../context/Context'
+import { LiaGlobeSolid } from "react-icons/lia";
+import { BiImages } from "react-icons/bi";
 
 
 const Main = () => {
@@ -41,11 +43,19 @@ const Main = () => {
           }
             <div className="main-bottom">
               <div className="search-box">
-                <div className='img-box'>
-                  <GoPlus/>
-                </div>
                 <input onChange={(e)=>setInput(e.target.value)} value={input} type="text" placeholder='Ask Chatbot'/>
-                <div>
+                <div className='search-icon'>
+                  <div>
+                    <GoPlus className='img-box'/>
+                    <p className='deep-search'>
+                      <LiaGlobeSolid className='globe'/>
+                      <span>Deep Search</span>
+                    </p>
+                    <p className='canvas'>
+                      <BiImages className='globe'/>
+                      <span>Canvas</span>
+                    </p>
+                  </div>
                   {input?<img onClick={()=>onSent()} src={assets.send_icon} alt="" />:<img src={assets.mic_icon} alt="" />}
                 </div>
               </div>
