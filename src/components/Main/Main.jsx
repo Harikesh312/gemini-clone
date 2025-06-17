@@ -43,7 +43,13 @@ const Main = () => {
           }
             <div className="main-bottom">
               <div className="search-box">
-                <input onChange={(e)=>setInput(e.target.value)} value={input} type="text" placeholder='Ask Cognito'/>
+                <textarea
+                  className="search-input"
+                  rows={1}
+                  value={input}
+                  onChange={e => setInput(e.target.value)}
+                  placeholder="Ask Anything..."
+                />
                 <div className='search-icon'>
                   <div>
                     <GoPlus className='img-box'/>
