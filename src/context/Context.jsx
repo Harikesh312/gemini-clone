@@ -15,7 +15,7 @@ const ContextProvider = (props) => {
     const delayPara = (index,nextword) => {
         setTimeout(function(){
             setResultData((prev)=>prev+nextword);
-        },75*index)
+        },45*index)
     }
 
     const newChat = () => {
