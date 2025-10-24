@@ -1,5 +1,6 @@
 import { createContext, useState } from "react";
 import runChat from "../config/gemini";
+import { formatResponse } from "../utils/formatResponse";
 
 export const Context = createContext();
 
@@ -12,10 +13,10 @@ const ContextProvider = (props) => {
     const [loading, setLoading] = useState(false)
     const [resultData, setResultData] = useState("")
 
-    const delayPara = (index,nextword) => {
+    const delayPara = (index, nextword) => {
         setTimeout(function(){
-            setResultData((prev)=>prev+nextword);
-        },45*index)
+            setResultData((prev) => prev + nextword);
+        }, 10 * index)
     }
 
     const newChat = () => {
@@ -30,8 +31,10 @@ const ContextProvider = (props) => {
 
         let response;
         if (prompt !== undefined) {
-            if (prompt.toLowerCase().includes("who build you") || prompt.toLowerCase().includes("who trained you") || prompt.toLowerCase().includes("who built you")) {
-                response = "I'm a large languange model and trained by Harikesh Kumar.";
+            if (prompt.toLowerCase().includes("who build you") || 
+                prompt.toLowerCase().includes("who trained you") || 
+                prompt.toLowerCase().includes("who built you")) {
+                response = "I'm a large language model trained by **Harikesh Kumar**. I'm designed to help you with various tasks and answer your questions.";
             } else {
                 response = await runChat(prompt);
             }
@@ -39,28 +42,24 @@ const ContextProvider = (props) => {
         } else {
             setPrevPrompts((prev) => [...prev, input]);
             setRecentPrompt(input);
-            if (input.toLowerCase().includes("who built you") || input.toLowerCase().includes("who trained you") || input.toLowerCase().includes("who build you")) {
-                response = "I'm a large languange model and trained by Harikesh Kumar.";
+            if (input.toLowerCase().includes("who built you") || 
+                input.toLowerCase().includes("who trained you") || 
+                input.toLowerCase().includes("who build you")) {
+                response = "I'm a large language model trained by **Harikesh Kumar**. I'm designed to help you with various tasks and answer your questions.";
             } else {
                 response = await runChat(input);
             }
         }
 
-        let responseArray = response.split("**");
-        let newResponse = "";
-        for (let i = 0; i < responseArray.length; i++) {
-            if (i === 0 || i % 2 === 0) {
-                newResponse += responseArray[i];
-            } else {
-                newResponse += "<b>" + responseArray[i] + "</b>";
-            }
+        // Format the response with markdown
+        let formattedResponse = formatResponse(response);
+        
+        // Animate response word by word
+        let words = formattedResponse.split(' ');
+        for (let i = 0; i < words.length; i++) {
+            delayPara(i, words[i] + " ");
         }
-        let newResponse2 = newResponse.split("*").join("</br>");
-        let newResponseArray = newResponse2.split(" ");
-        for (let i = 0; i < newResponseArray.length; i++) {
-            const nextword = newResponseArray[i];
-            delayPara(i, nextword + " ");
-        }
+        
         setLoading(false);
         setInput("");
     }
