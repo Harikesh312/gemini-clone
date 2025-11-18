@@ -7,7 +7,7 @@ import { LiaGlobeSolid } from "react-icons/lia";
 import { BiImages } from "react-icons/bi";
 import { AiOutlineLike, AiOutlineDislike, AiFillLike, AiFillDislike } from "react-icons/ai";
 
-const Main = () => {
+const Main = ({ isSidebarExpanded }) => {
   const { onSent, recentPrompt, showResult, loading, resultData, setInput, input } = useContext(Context);
   const textareaRef = useRef(null);
   const [liked, setLiked] = useState(false);
@@ -42,7 +42,7 @@ const Main = () => {
   };
 
   return (
-    <div className='main'>
+    <div className={`main ${!isSidebarExpanded ? 'sidebar-collapsed' : ''}`}>
       <div className="nav">
         <p>Cognito</p>
         <img src={assets.user_icon} alt="User" />
@@ -141,6 +141,16 @@ const Main = () => {
           </p>
         </div>
       </div>
+    </div>
+  );
+};
+
+const Sidebar = () => {
+  const [extended, setExtended] = useState(false);
+  
+  return (
+    <div className={`sidebar ${extended ? 'expanded' : 'collapsed'}`}>
+      {/* ... rest of your existing JSX ... */}
     </div>
   );
 };
