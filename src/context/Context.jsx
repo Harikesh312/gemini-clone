@@ -30,25 +30,25 @@ const ContextProvider = (props) => {
         setShowResult(true);
 
         let response;
+        let promptToSend;
+        
         if (prompt !== undefined) {
-            if (prompt.toLowerCase().includes("who build you") || 
-                prompt.toLowerCase().includes("who trained you") || 
-                prompt.toLowerCase().includes("who built you")) {
-                response = "I'm a large language model trained by **Harikesh Kumar**. I'm designed to help you with various tasks and answer your questions.";
-            } else {
-                response = await runChat(prompt);
-            }
+            promptToSend = prompt;
             setRecentPrompt(prompt);
+            setPrevPrompts((prev) => [...prev, prompt]);
         } else {
-            setPrevPrompts((prev) => [...prev, input]);
+            promptToSend = input;
             setRecentPrompt(input);
-            if (input.toLowerCase().includes("who built you") || 
-                input.toLowerCase().includes("who trained you") || 
-                input.toLowerCase().includes("who build you")) {
-                response = "I'm a large language model trained by **Harikesh Kumar**. I'm designed to help you with various tasks and answer your questions.";
-            } else {
-                response = await runChat(input);
-            }
+            setPrevPrompts((prev) => [...prev, input]);
+            setInput(""); // Clear input immediately
+        }
+
+        if (promptToSend.toLowerCase().includes("who built you") || 
+            promptToSend.toLowerCase().includes("who trained you") || 
+            promptToSend.toLowerCase().includes("who build you")) {
+            response = "I'm a large language model trained by **Harikesh Kumar**. I'm designed to help you with various tasks and answer your questions.";
+        } else {
+            response = await runChat(promptToSend);
         }
 
         // Format the response with markdown
@@ -61,7 +61,6 @@ const ContextProvider = (props) => {
         }
         
         setLoading(false);
-        setInput("");
     }
 
     const contextValue = {

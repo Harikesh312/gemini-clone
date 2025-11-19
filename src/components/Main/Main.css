@@ -609,6 +609,103 @@
   background-color: #fce8e6;
 }
 
+
+/* Floating Scroll to Bottom Button - Right Side Static */
+.floating-scroll-btn {
+  position: fixed;
+  right: 45rem;
+  bottom: 220px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #ffffff;
+  border: 1.5px solid #e0e0e0;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #3c4043;
+  transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+  z-index: 99;
+}
+
+.floating-scroll-btn:hover {
+  background-color: #f8f9fa;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.15);
+  transform: translateY(-6px);
+  border-color: #c0c7ce;
+}
+
+.floating-scroll-btn:active {
+  transform: translateY(-2px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* Bouncing animation for arrow */
+.floating-scroll-btn svg {
+  animation: bounceArrow 2s infinite ease-in-out;
+}
+
+@keyframes bounceArrow {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(4px);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 1199px) {
+  .floating-scroll-btn {
+    right: 35rem;
+    bottom: 200px;
+  }
+}
+
+@media (max-width: 767px) {
+  .floating-scroll-btn {
+    right: 20rem;
+    bottom: 210px;
+    width: 44px;
+    height: 44px;
+  }
+
+  .floating-scroll-btn svg {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+@media (max-width: 599px) {
+  .floating-scroll-btn {
+    right: 15rem;
+    bottom: 200px;
+    width: 40px;
+    height: 40px;
+  }
+
+  .floating-scroll-btn svg {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+@media (max-width: 399px) {
+  .floating-scroll-btn {
+    right: 170px;
+    bottom: 190px;
+    width: 38px;
+    height: 38px;
+  }
+
+  .floating-scroll-btn svg {
+    width: 16px;
+    height: 16px;
+  }
+}
+
 /* ========================================= */
 /* RESPONSIVE DESIGN */
 /* ========================================= */

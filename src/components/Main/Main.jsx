@@ -6,12 +6,15 @@ import { Context } from '../../context/Context';
 import { LiaGlobeSolid } from "react-icons/lia";
 import { BiImages } from "react-icons/bi";
 import { AiOutlineLike, AiOutlineDislike, AiFillLike, AiFillDislike } from "react-icons/ai";
+import { HiOutlineArrowDown } from "react-icons/hi";
 
 const Main = ({ isSidebarExpanded }) => {
   const { onSent, recentPrompt, showResult, loading, resultData, setInput, input } = useContext(Context);
   const textareaRef = useRef(null);
+  const resultContainerRef = useRef(null);
   const [liked, setLiked] = useState(false);
   const [disliked, setDisliked] = useState(false);
+  const [showScrollButton, setShowScrollButton] = useState(false);
 
   useEffect(() => {
     const textarea = textareaRef.current;
@@ -22,12 +25,43 @@ const Main = ({ isSidebarExpanded }) => {
     }
   }, [input]);
 
+  useEffect(() => {
+    const resultContainer = resultContainerRef.current;
+    if (!resultContainer) return;
+
+    const handleScroll = () => {
+      const { scrollTop, scrollHeight, clientHeight } = resultContainer;
+      const isNearBottom = scrollHeight - scrollTop - clientHeight < 100;
+      setShowScrollButton(!isNearBottom && scrollHeight > clientHeight);
+    };
+
+    resultContainer.addEventListener('scroll', handleScroll);
+    return () => resultContainer.removeEventListener('scroll', handleScroll);
+  }, []);
+
   const handleKeyDown = (e) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
       if (input.trim()) {
-        onSent();
+        handleSend();
       }
+    }
+  };
+
+  const handleSend = () => {
+    if (input.trim()) {
+      const currentInput = input;
+      setInput('');
+      onSent(currentInput);
+    }
+  };
+
+  const scrollToBottom = () => {
+    if (resultContainerRef.current) {
+      resultContainerRef.current.scrollTo({
+        top: resultContainerRef.current.scrollHeight,
+        behavior: 'smooth'
+      });
     }
   };
 
@@ -56,7 +90,7 @@ const Main = ({ isSidebarExpanded }) => {
             </div>
           </>
         ) : (
-          <div className='result'>
+          <div className='result' ref={resultContainerRef}>
             <div className="result-title">
               <p>{recentPrompt}</p>
             </div>
@@ -99,6 +133,17 @@ const Main = ({ isSidebarExpanded }) => {
           </div>
         )}
 
+        {/* Floating Scroll to Bottom Button - Right Side Static */}
+        {showResult && showScrollButton && !loading && (
+          <button
+            className="floating-scroll-btn"
+            onClick={scrollToBottom}
+            title="Scroll to bottom"
+          >
+            <HiOutlineArrowDown size={20} />
+          </button>
+        )}
+
         <div className="main-bottom">
           <div className="search-box">
             <textarea
@@ -126,7 +171,7 @@ const Main = ({ isSidebarExpanded }) => {
 
               <div className='send-button'>
                 {input.trim() ? (
-                  <button onClick={() => onSent()} className='send-btn'>
+                  <button onClick={handleSend} className='send-btn'>
                     <img src={assets.send_icon} alt="Send" />
                   </button>
                 ) : (
@@ -141,16 +186,6 @@ const Main = ({ isSidebarExpanded }) => {
           </p>
         </div>
       </div>
-    </div>
-  );
-};
-
-const Sidebar = () => {
-  const [extended, setExtended] = useState(false);
-  
-  return (
-    <div className={`sidebar ${extended ? 'expanded' : 'collapsed'}`}>
-      {/* ... rest of your existing JSX ... */}
     </div>
   );
 };
